@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="echarts.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <style>
+    #main {
+      width: 980px;
+      height: 660px;
+      border: 1px red solid;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="main"></div>
+  <script>
+    //基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    //指定图表的配置项和数据
+
+var percent = 1;
+
+function getData() {
+return [{
+value: percent,
+itemStyle: {
+normal: {
+color: '#fb358a',
+shadowBlur: 10,
+shadowColor: '#fb358a'
+}
+}
+}, {
+value: 100 - percent,
+itemStyle: {
+normal: {
+color: 'transparent'
+}
+}
+}];
+}
+
+option = {
+backgroundColor: '#333645',
+title: {
+text: (percent * 1) + '%',
+x: 'center',
+y: 'center',
+textStyle: {
+color: '#98a0c4',
+fontWeight: 'bolder',
+fontSize: 64,
+}
+},
+series: [{
+type: 'pie',
+radius: ['39%', '49%'],
+silent: true,
+label: {
+normal: {
+show: false,
+}
+},
+
+data: [{
+value: 1,
+itemStyle: {
+normal: {
+color: '#313443',
+shadowBlur: 10,
+shadowColor: '#1b1e25',
+
+
+}
+}
+}],
+
+animation: false
+},
+
+{
+type: 'pie',
+radius: ['39%', '49%'],
+silent: true,
+label: {
+normal: {
+show: false,
+}
+},
+
+data: [{
+value: 1,
+itemStyle: {
+normal: {
+color: '#313443',
+shadowBlur: 50,
+shadowColor: '#1b1e25'
+}
+}
+}],
+
+animation: false
+},
+
+{
+name: 'main',
+type: 'pie',
+radius: ['50%', '51%'],
+label: {
+normal: {
+show: false,
+}
+},
+data: getData(),
+
+animationEasingUpdate: 'cubicInOut',
+animationDurationUpdate: 1000
+}
+]
+};
+
+setInterval(function() {
+
+if (percent == 100) {
+percent = 100;
+} else {
+++percent;
+}
+myChart.setOption({
+title: {
+text: percent + '%'
+},
+series: [{
+name: 'main',
+data: getData()
+}]
+})
+
+}, 1000);
+    //使用刚指定的配置项和数据显示图表
+    myChart.setOption(option);
+
+  </script>
+</body>
+
+</html>
